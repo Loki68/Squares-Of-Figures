@@ -34,12 +34,104 @@
 
 Замечания.
 	В классе подсчета площади круга реализована проверка радиуса на отрицательное значение;
+	
 	В классе подсчета площади треугольника реализована проверка длин сторон на отрицательные значения.
 		Обе проверки вернуть нуль и выведут в консоль сообщение об ошибке.
 
 	Класс проверки на прямоугольность треугольника можно использовать только для уже просчитанного треугольника.
 		Иначе в консоль будет выведена информация о том, что треугольник не прямоугольный.
 		Плюс проверка на треугольность фигуры и на наличие отрицательных значений длины сторон треугольника реализованы в классе TriangleSquare. 
+
+	Добавить новую фигуру в проект можно следующим способом:
+		
+		1) Добавить класс наследник контекста фигур в папку "Context":
+
+			using SquaresOfFigures.Library.Strategy;
+
+			namespace SquaresOfFigures.Library.Context
+			{
+				/// <summary>
+				/// Наследник контекста, реализующий фигуру - круг
+				/// </summary>
+				public class SomeFigure : Shape
+				{
+					#region Optional
+        
+					/// <summary>
+					/// Набор параметров, необходимых для определения площади фигуры
+					/// </summary>
+
+					/// <summary>
+					/// И при необходимости свойств новой фигуры
+					/// Инициализируется в конструкторе
+					/// </summary>
+					public double SomeProperty { get; init; }
+
+					#endregion 
+
+					/// <summary>
+					/// Добавить конструктор, принимающий необходимые параметры
+					/// </summary>
+					/// <param name="someParam">Некоторый параметр/параметры некоторого типа - SomeType</param>
+					/// <param name="square">экземпляр соответствующей стратегии</param>
+					public Circle(
+						SomeType someParameters,
+						ISquare square)
+						: base(square)
+					{
+						//присвоение параметров
+					}
+				}
+			}
+
+		2) Добавить класс-реализацию стратегии вычисления площади фигуры в папку "Strategy" :
+
+			using SquaresOfFigures.Library.Context;
+
+			//опциональное пространство имен. раскомментировать если будут использованы функции хелпера
+			//using SquaresOfFigures.Library.Helpers;
+
+			using System;
+
+			namespace SquaresOfFigures.Library.Strategy
+			{
+				/// <summary>
+				/// Реализация "стратегии" для вычисления площади новой фигуры
+				/// </summary>
+				public class SomeFigureSquare : ISquare
+				{
+					/// <summary>
+					/// Реализация метода из "стратегии
+					/// </summary>
+					/// <param name="shape">Собственно фигура</param>
+					/// <returns>Площадь круга или нуль, если радиус отрицательный</returns>
+					public double GetSquare(Shape shape)
+					{
+						var someFigure = shape as SomeFigure;
+
+						//Необходимые поверки и собственно вычисление площади фигуры
+						#region Example for Circle
+						/*
+						if (circle.Radius > 0)
+						{
+							//Вычисление площади круга
+							var square = Circle.PI * MathHelper.GetSqr(circle.Radius);
+
+							return MathHelper.GetRoundedValue(square, 2);
+						}
+						else
+						{
+							Console.WriteLine("Ошибка! Радиус окружности должен быть положительным!");
+							return 0;
+						}
+						*/
+						#endregion
+
+					}
+				}
+			}
+
+		3) Следуйте общим для всех типов фигур из библиотеки инструкциям по обращению с ними и собственной логике проверок для собственных фигур.
 
 Примеры:
 	1) Подсчет площади круга:

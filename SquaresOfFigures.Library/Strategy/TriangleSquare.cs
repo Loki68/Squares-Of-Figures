@@ -23,9 +23,10 @@ namespace SquaresOfFigures.Library.Strategy
 
             bool sidesAreNegative = IsNegativeNumber(minNumber);
 
+            
             //Проверка данных на корректность
             //Длины сторон, и длины вообще, должны быть неотрицательными
-            if(sidesAreNegative)
+            if (sidesAreNegative)
             {
                 Console.WriteLine("Длины сторон не могут быть отрицательными!");
                 return 0;
@@ -47,6 +48,7 @@ namespace SquaresOfFigures.Library.Strategy
                 Console.WriteLine("Фигура не является треугольником!");
                 return 0;
             }
+            
         }
 
         /// <summary>
